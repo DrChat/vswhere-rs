@@ -71,6 +71,9 @@ pub struct InstallInfo {
     update_date: DateTime<Utc>,
     catalog: InstallCatalog,
     properties: InstallProperties,
+    /// Catchall for unrecognized/new fields
+    #[serde(flatten)]
+    other: serde_json::Value,
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -96,6 +99,9 @@ pub struct InstallCatalog {
     product_release: Option<String>,
     product_semantic_version: Version,
     required_engine_version: FourPointVersion,
+    /// Catchall for unrecognized/new fields
+    #[serde(flatten)]
+    other: serde_json::Value,
 }
 
 #[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
@@ -106,6 +112,9 @@ pub struct InstallProperties {
     channel_manifest_id: String,
     nickname: String,
     setup_engine_file_path: PathBuf,
+    /// Catchall for unrecognized/new fields
+    #[serde(flatten)]
+    other: serde_json::Value,
 }
 
 fn deserialize_uppercase_bool<'de, D: Deserializer<'de>>(
